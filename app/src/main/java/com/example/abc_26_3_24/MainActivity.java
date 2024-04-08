@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button randBtn,btn1;
     TextView tv1,tv4;
     Random rand = new Random();
+    ImageView iV;
     int rand_num;
     double a,b,c;
     double ans1,ans2;
@@ -37,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btn1 = findViewById(R.id.btn1);
         tv1 = findViewById(R.id.tv1);
         tv4 = findViewById(R.id.tv4);
-
-
+        iV =  findViewById(R.id.iV);
     }
 
 
@@ -93,26 +94,60 @@ public class MainActivity extends AppCompatActivity {
                     b4 = data_back.getBooleanExtra("b2",false);
                     tv1.setText("");
                     tv4.setText("");
-                    if(b3)
-                    {
-                        tv1.setVisibility(View.VISIBLE);
-                        ans1 = data_back.getDoubleExtra("X1", -1);
-                        tv1.setText(String.format("X: %.1f",ans1));
-                    }
-                    else
-                    {
-                        tv1.setVisibility(View.INVISIBLE);
-                    }
 
                     if(b4)
                     {
-                        tv4.setVisibility(View.VISIBLE);
                         ans2 = data_back.getDoubleExtra("X2", -1);
                         tv4.setText(String.format("X: %.1f",ans2));
                     }
+
+
+                    if(b3)
+                    {
+                        ans1 = data_back.getDoubleExtra("X1", -1);
+                        tv1.setText(String.format("X: %.1f",ans1));
+                    }
+                    if(b4 || b3)
+                    {
+                        iV.setVisibility(View.VISIBLE);
+                        if(a > 0)//+a  u
+                        {
+                            if (check_variation(a,b,c) > 0)
+                            {
+                                iV.setImageResource(R.drawable.abc_a_minus_b);
+                            }
+                            else if (check_variation(a,b,c) == 0)
+                            {
+                                iV.setImageResource(R.drawable.abc_a);
+                            }
+                            else
+                            {
+                                iV.setImageResource(R.drawable.abc_nox_a);
+                            }
+                        }
+                        else if (a < 0)//-a h
+                        {
+                            if (check_variation(a,b,c) > 0)
+                            {
+                                iV.setImageResource(R.drawable.abc_ninus_a_b);
+                            }
+                            else if (check_variation(a,b,c) == 0)
+                            {
+                                iV.setImageResource(R.drawable.abc_minus_a);
+                            }
+                            else
+                            {
+                                iV.setImageResource(R.drawable.abc_nox_minus_a);
+                            }
+                        }
+                        else //-----
+                        {
+                            iV.setImageResource(R.drawable.abc);
+                        }
+                    }
                     else
                     {
-                        tv4.setVisibility(View.INVISIBLE);
+                        iV.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -162,5 +197,10 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
+    public double check_variation(double a,double b,double c)
+    {
+        double num = 0;
+        num = (b*b +(-4*a*c));
+        return num;
+    }
 }

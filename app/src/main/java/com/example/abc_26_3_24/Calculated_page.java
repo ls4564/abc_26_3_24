@@ -27,10 +27,22 @@ public class Calculated_page extends AppCompatActivity {
         b = gi.getDoubleExtra("b",-1);
         c = gi.getDoubleExtra("c",-1);
 
-        x1 =  (-b + Math.sqrt(b*b -4*a*c))/2*a;
-        x2 =  (-b - Math.sqrt(b*b -4*a*c))/2*a;
-        tv2.setText(String.format("X: %.1f",x1));
-        tv3.setText(String.format("X: %.1f",x2));
+        x1 =  (-b - Math.sqrt(b*b -4*a*c))/2*a;
+        x2 =  (-b + Math.sqrt(b*b -4*a*c))/2*a;
+        if (check_variation(a,b,c) > 0)
+        {
+            tv2.setText(String.format("X: %.1f",x1));
+            tv3.setText(String.format("X: %.1f",x2));
+        }
+        else if (check_variation(a,b,c) == 0)
+        {
+            tv3.setText(String.format("X: %.1f",x2));
+        }
+        else
+        {
+            tv2.setText("No ans");
+            tv3.setText("No ans");
+        }
     }
 
     public void returned(View view)
@@ -48,14 +60,16 @@ public class Calculated_page extends AppCompatActivity {
             b2 = true;
             gi.putExtra("X2",x2);
         }
-
-
-
-
         gi.putExtra("b1",b1);
         gi.putExtra("b2",b2);
         setResult(RESULT_OK,gi);
         finish();
 
+    }
+    public double check_variation(double a,double b,double c)
+    {
+        double num = 0;
+        num = (b*b +(-4*a*c));
+        return num;
     }
 }
