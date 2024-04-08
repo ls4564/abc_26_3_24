@@ -13,37 +13,49 @@ public class Calculated_page extends AppCompatActivity {
     TextView tv2,tv3;
     double x1,x2;
     String st1,st2;
+    boolean b1,b2;
+    Intent gi;
+    double a,b,c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculated_page);
         tv2 = findViewById(R.id.tv2);
         tv3 = findViewById(R.id.tv3);
-        Intent gi = getIntent();
-        double a = gi.getDoubleExtra("a",-1);
-        double b = gi.getDoubleExtra("b",-1);
-        double c = gi.getDoubleExtra("c",-1);
+        gi = getIntent();
+        a = gi.getDoubleExtra("a",-1);
+        b = gi.getDoubleExtra("b",-1);
+        c = gi.getDoubleExtra("c",-1);
 
         x1 =  (-b + Math.sqrt(b*b -4*a*c))/2*a;
         x2 =  (-b - Math.sqrt(b*b -4*a*c))/2*a;
-        tv2.setText("X2: "+x2);
-        tv3.setText("X1: "+x1);
-
+        tv2.setText(String.format("X: %.1f",x1));
+        tv3.setText(String.format("X: %.1f",x2));
     }
 
-    public void ret(View view, Intent gi)
+    public void returned(View view)
     {
         st1 = String.valueOf(x1);
-        st1 = String.valueOf(x2);
-        if(!st1.equals("NaN"))
-        {
+        st2 = String.valueOf(x2);
+
+        if ((b*b +(-4*a*c)) > 0){
             gi.putExtra("X1",x1);
-        }
-        if(st2.equals("NaN"))
-        {
+            b1 = true;
+            b2 = true;
             gi.putExtra("X2",x2);
         }
+        else if ((b*b +(-4*a*c)) == 0){
+            b2 = true;
+            gi.putExtra("X2",x2);
+        }
+
+
+
+
+        gi.putExtra("b1",b1);
+        gi.putExtra("b2",b2);
         setResult(RESULT_OK,gi);
         finish();
+
     }
 }

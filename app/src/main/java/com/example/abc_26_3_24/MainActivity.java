@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     int rand_num;
     double a,b,c;
     double ans1,ans2;
+    boolean b4 = false, b3 = false;
     String st1,st2,st3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    protected void onActivityResult(int source, int result, @Nullable Intent data_back){
-        super.onActivityResult(source, result, data_back);
-        if (source == REQUEST_CODE) {
-            if (result == Activity.RESULT_OK) {
-                if (data_back != null) {
-                    ans1 = data_back.getDoubleExtra("X1", -1);
-                    ans2 = data_back.getDoubleExtra("X2", -1);
-                    tv1.setText("X1" +  ans1);
-                    tv4.setText("X1" +  ans2);
-                }
-            }
-        }
-    }
+
 
 
     public void rand(View view) {
@@ -77,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         st1 = eD1.getText().toString();
         st2 = eD2.getText().toString();
         st3 = eD3.getText().toString();
-        if(!st3.isEmpty() && !st2.isEmpty() && !st1.isEmpty())
+        if(check_Input(st1) && check_Input(st2) && check_Input(st3))
         {
             a = Double.parseDouble(st1);
             b = Double.parseDouble(st2);
@@ -93,4 +82,85 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter in all a b c", Toast.LENGTH_SHORT);
         }
     }
+
+    @Override
+    protected void onActivityResult(int source, int result, @Nullable Intent data_back){
+        super.onActivityResult(source, result, data_back);
+        if (source == REQUEST_CODE) {
+            if (result == Activity.RESULT_OK) {
+                if (data_back != null) {
+                    b3 = data_back.getBooleanExtra("b1",false);
+                    b4 = data_back.getBooleanExtra("b2",false);
+                    tv1.setText("");
+                    tv4.setText("");
+                    if(b3)
+                    {
+                        tv1.setVisibility(View.VISIBLE);
+                        ans1 = data_back.getDoubleExtra("X1", -1);
+                        tv1.setText(String.format("X: %.1f",ans1));
+                    }
+                    else
+                    {
+                        tv1.setVisibility(View.INVISIBLE);
+                    }
+
+                    if(b4)
+                    {
+                        tv4.setVisibility(View.VISIBLE);
+                        ans2 = data_back.getDoubleExtra("X2", -1);
+                        tv4.setText(String.format("X: %.1f",ans2));
+                    }
+                    else
+                    {
+                        tv4.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        }
+    }
+    public boolean check_Input(String input)
+    {
+        if(!input.isEmpty())
+        {
+            if(input.length() == 1)
+            {
+                if(input.charAt(0) >= '0' && input.charAt(0) <= '9')
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(input.equals("-.") || input.equals("+."))
+                {
+                    return false;
+                }
+                if(input.indexOf('-') != -1 && input.indexOf('+') != -1)
+                {
+                    if(input.indexOf('-')+1 >= '0' && input.indexOf('-')+1 <= '9')
+                    {
+                        return true;
+                    }
+                    else if(input.indexOf('+')+1 >= '0' && input.indexOf('+')+1 <= '9')
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
