@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8292EC"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -24,7 +25,8 @@
             android:gravity="center"
             android:hint="a"
             android:inputType="numberSigned|numberDecimal"
-            android:textColorHint="#FF9800"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
             android:textSize="34sp" />
     </LinearLayout>
 
@@ -43,7 +45,8 @@
             android:gravity="center"
             android:hint="b"
             android:inputType="numberSigned|numberDecimal"
-            android:textColorHint="#FF9800"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
             android:textSize="34sp" />
     </LinearLayout>
 
@@ -62,7 +65,8 @@
             android:gravity="center"
             android:hint="c"
             android:inputType="numberSigned|numberDecimal"
-            android:textColorHint="#FF9800"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
             android:textSize="34sp" />
     </LinearLayout>
 
@@ -84,6 +88,7 @@
                 android:id="@+id/randBtn"
                 android:layout_width="150dp"
                 android:layout_height="80dp"
+                android:backgroundTint="#9CEF89"
                 android:onClick="rand"
                 android:text="Random number" />
         </LinearLayout>
@@ -99,6 +104,7 @@
                 android:id="@+id/btn1"
                 android:layout_width="150dp"
                 android:layout_height="80dp"
+                android:backgroundTint="#9CEF89"
                 android:onClick="Calculated"
                 android:text="GO" />
         </LinearLayout>
@@ -124,6 +130,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="#000000"
                 android:textSize="34sp" />
 
             <TextView
@@ -132,6 +139,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="#000000"
                 android:textSize="34sp" />
         </LinearLayout>
 
